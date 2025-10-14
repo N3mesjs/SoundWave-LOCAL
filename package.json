@@ -1,0 +1,24 @@
+{
+  "name": "electron",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Nymes72/Electron#readme",
+  "bugs": {
+    "url": "https://github.com/Nymes72/Electron/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nymes72/Electron.git"
+  },
+  "license": "ISC",
+  "author": "N3mesjs",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ." 
+  },
+  "devDependencies": {
+    "electron": "^38.2.2"
+  }
+}

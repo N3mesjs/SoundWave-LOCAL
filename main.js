@@ -1,14 +1,12 @@
 const { app, BrowserWindow, ipcMain } = require('electron/main');
 const path = require('node:path');
 
-let win; // Definisci win fuori dalla funzione
-
 const createWindow = () => {
   win = new BrowserWindow({
     width: 600,
     height: 800,
     titleBarStyle: 'hidden',
-    resizable: false,
+    resizable: true,
     fullscreenable: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
@@ -27,9 +25,11 @@ app.whenReady().then(() => {
     }
   });
 
-  ipcMain.handle('closeMainWindow', () => {
-    console.log('Ricevuto evento close');
-    app.quit(); // Chiudi la finestra
+  ipcMain.on('close-window', () => {
+    app.quit();
+  })
+  ipcMain.on('minimize-window', () => {
+    win.minimize();
   });
 });
 

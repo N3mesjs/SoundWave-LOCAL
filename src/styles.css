@@ -28,6 +28,7 @@ body {
   padding: 6px;
   background: none;
   border: none;
+  -webkit-app-region: no-drag;
 }
 
 #minimize:hover, #close:hover {

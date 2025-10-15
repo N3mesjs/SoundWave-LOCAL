@@ -1,30 +1,40 @@
-import { app, BrowserWindow } from 'electron/main'
+const { app, BrowserWindow, ipcMain } = require('electron/main');
+const path = require('node:path');
+
+let win; // Definisci win fuori dalla funzione
 
 const createWindow = () => {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 600,
     height: 800,
     titleBarStyle: 'hidden',
     resizable: false,
     fullscreenable: false,
-  })
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
+  });
 
-  //win.loadFile('index.html')
-  win.loadFile('./src/index.html')
-}
+  win.loadFile('./src/index.html');
+};
 
 app.whenReady().then(() => {
-  createWindow()
+  createWindow();
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
+      createWindow();
     }
-  })
-})
+  });
+
+  ipcMain.handle('closeMainWindow', () => {
+    console.log('Ricevuto evento close');
+    app.quit(); // Chiudi la finestra
+  });
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.quit();
   }
-})
+});

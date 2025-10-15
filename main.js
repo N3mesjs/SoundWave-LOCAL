@@ -4,10 +4,14 @@ const createWindow = () => {
   const win = new BrowserWindow({
     width: 600,
     height: 800,
-    frame: false
+    titleBarStyle: 'hidden',
+    resizable: false,
+    fullscreenable: true,
+    titleBarOverlay: true
   })
 
-  win.loadFile('index.html')
+  //win.loadFile('index.html')
+  win.loadFile('./src/index.html')
 }
 
 app.whenReady().then(() => {

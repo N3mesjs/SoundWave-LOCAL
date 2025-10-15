@@ -6,8 +6,7 @@ const createWindow = () => {
     height: 800,
     titleBarStyle: 'hidden',
     resizable: false,
-    fullscreenable: true,
-    titleBarOverlay: true
+    fullscreenable: false,
   })
 
   //win.loadFile('index.html')

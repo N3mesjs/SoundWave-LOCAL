@@ -1,6 +1,7 @@
 :root {
   --bg-app: hsl(0, 0%, 0%);
   --bg-hover-button-header: hsl(0, 0%, 20%);
+  --bg-hover-button-cross: hsl(0, 100%, 40%);
   --bg-hover-button: hsl(0, 0%, 90%);
   --progress-bg: hsl(0, 0%, 44%);
   --progress-fill: hsl(0, 0%, 100%);
@@ -35,9 +36,11 @@ body {
   -webkit-app-region: no-drag;
 }
 
-#minimize:hover,
-#close:hover {
+#minimize:hover {
   background-color: var(--bg-hover-button-header);
+}
+#close:hover {
+  background-color: var(--bg-hover-button-cross);
 }
 
 /* --------------- */

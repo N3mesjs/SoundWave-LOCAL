@@ -1,5 +1,6 @@
 let currentSongIndex = 0; // Indice della canzone attualmente selezionata
 let isPlaying = false;
+let songs = [];
 
 const audioPlayer = document.getElementById('audio-player');
 const source = audioPlayer.querySelector('source');
@@ -20,11 +21,17 @@ const volumeBar = document.getElementById('volume');
 const currentTime = document.getElementById('current-time');
 const totalTime = document.getElementById('duration');
 
-const songs = await fetch('./songs.json')
-.then(response => response.json(); console.log)
+async function fetchSongs() {
+    const response = await fetch('songs.json');
+    if (!response.ok) {
+        throw new Error('Could not fetch songs.json');
+    }
+    const songs = await response.json();
+    return songs;
+}
 
-
-const InizializeFirstSong = (index) => {
+async function InizializeFirstSong(index) {
+    songs = await fetchSongs();
     thumbnail.src = songs[index].thumbnailSrc;
     thumbnail.alt = songs[index].title + ' thumbnail';
 

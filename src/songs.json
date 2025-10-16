@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Club Bizarre",
+        "artist": "U96",
+        "album": "Club Bizarre",
+        "year": 1995,
+        "thumbnailSrc": "../assets/images/u96-clubBizare.jpeg",
+        "songSrc": "../assets/songs/U96-Club-Bizarre.mp3"
+    },
+    {
+        "title": "Please Don't stop the music",
+        "artist": "Rihanna",
+        "album": "Good Girl Gone Bad",
+        "year": 2007,
+        "thumbnailSrc": "../assets/images/please-dont-stop-the-music.jpeg",
+        "songSrc": "../assets/songs/dont-stop-the-music.mp3"
+    }
+]

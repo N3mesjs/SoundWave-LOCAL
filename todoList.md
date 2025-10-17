@@ -1,5 +1,5 @@
 # To-Do List
-- Add login page, user management
+- Add login page, user management => JWT & MySQL
 - Page to load songs, Form: Author, mp3 file, ...
 - Add a database, store all the songs names, etc
 - Move the server with songs to rasberry pi.

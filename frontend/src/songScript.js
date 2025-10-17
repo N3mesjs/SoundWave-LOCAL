@@ -17,6 +17,7 @@ const previousButton = document.getElementById('previous');
 const progressBar = document.getElementById('progress');
 
 const volumeBar = document.getElementById('volume');
+const volumeManager = document.getElementById('volume-manager');
 
 const currentTime = document.getElementById('current-time');
 const totalTime = document.getElementById('duration');
@@ -143,6 +144,13 @@ progressBar.addEventListener('click', (event) => {
 
 volumeBar.addEventListener('input', (event) => {
     audioPlayer.volume = event.target.value / 100;
+    if (audioPlayer.volume === 0) {
+        volumeManager.querySelectorAll('svg')[0].classList.add('hidden');
+        volumeManager.querySelectorAll('svg')[1].classList.remove('hidden');
+    } else {
+        volumeManager.querySelectorAll('svg')[0].classList.remove('hidden');
+        volumeManager.querySelectorAll('svg')[1].classList.add('hidden');
+    }
 });
 
 audioPlayer.addEventListener('playing', () => {

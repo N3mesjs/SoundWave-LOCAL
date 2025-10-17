@@ -27,27 +27,27 @@ async function fetchSongs() {
             if (image.includes(path.parse(song).name)) {
                 imageFound = true;
                 return {
-                    songSrc: path.join('assets', 'songs', song),
-                    thumbnailSrc: path.join('assets', 'images', image)
+                    songSrc: `/assets/songs/${song}`,
+                    thumbnailSrc: `/assets/images/${image}`
                 }
             }
         };
         if (!imageFound) {
             return {
-                songSrc: path.join('assets', 'songs', song),
-                thumbnailSrc: path.join('assets', 'images', 'default.png')
+                songSrc: `/assets/songs/${song}`,
+                thumbnailSrc: `/assets/images/${image}`
             }
         }
         imageFound = false;
         })
-    return JSON.stringify(playlist);
+    return playlist;
 }
 
 app.get('/api/songs', async (req, res) => {
     const songs = await fetchSongs();
     res.setHeader('Content-Type', 'application/json');
-    res.status(200)
-    res.send(songs);
+    res.status(200);
+    res.json(songs);
     console.log('Served song list');
 });
 

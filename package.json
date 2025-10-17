@@ -20,10 +20,9 @@
     "server": "node backend/server.js"
   },
   "devDependencies": {
+    "@types/node": "^24.8.1",
     "electron": "^38.2.2",
-    "nodemon": "^3.1.10"
-  },
-  "dependencies": {
-    "express": "^5.1.0"
+    "nodemon": "^3.1.10",
+    "typescript": "^5.9.3"
   }
 }

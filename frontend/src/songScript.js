@@ -21,6 +21,8 @@ const volumeBar = document.getElementById('volume');
 const currentTime = document.getElementById('current-time');
 const totalTime = document.getElementById('duration');
 
+const baseURL = "http://localhost:3000";
+
 async function fetchSongsMap() {
     const response = await fetch('http://localhost:3000/api/songs', {
         method: 'GET', 
@@ -35,8 +37,11 @@ async function fetchSongsMap() {
 
 async function InizializeFirstSong(index) {
     songs = await fetchSongsMap();
-    thumbnail.src = "http:\\localhost:3000\\" + songs[index].thumbnailSrc;
-    source.src = "http:\\localhost:3000\\" + songs[index].songSrc;
+    if (!songs || songs.length === 0) return;
+
+    source.src = getSongURL(index);
+    thumbnail.src = getThumbnailURL(index);
+
     audioPlayer.load();
 }
 
@@ -47,6 +52,16 @@ function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
+const getSongURL = (index) => {
+    const songData = songs[index];
+    return new URL(songData.songSrc, baseURL).href;
+}
+
+const getThumbnailURL = (index) => {
+    const songData = songs[index];
+    return new URL(songData.thumbnailSrc, baseURL).href;
 }
 
 InizializeFirstSong(currentSongIndex);
@@ -70,9 +85,9 @@ nextButton.addEventListener('click', () => {
     } else {
         currentSongIndex = 0; // Torna alla prima canzone
     }
-    thumbnail.src = songs[currentSongIndex].thumbnailSrc;
-    thumbnail.alt = songs[currentSongIndex].title + ' thumbnail';
-    source.src = songs[currentSongIndex].songSrc;
+
+    thumbnail.src = getThumbnailURL(currentSongIndex);
+    source.src = getSongURL(currentSongIndex);
     audioPlayer.load();
     audioPlayer.play();
 });
@@ -83,9 +98,9 @@ previousButton.addEventListener('click', () => {
     } else {
         currentSongIndex = songs.length - 1; // Vai all'ultima canzone
     }
-    thumbnail.src = songs[currentSongIndex].thumbnailSrc;
-    thumbnail.alt = songs[currentSongIndex].title + ' thumbnail';
-    source.src = songs[currentSongIndex].songSrc;
+
+    thumbnail.src = getThumbnailURL(currentSongIndex);
+    source.src = getSongURL(currentSongIndex);
     audioPlayer.load();
     audioPlayer.play();
 });
@@ -103,7 +118,9 @@ audioPlayer.addEventListener('ended', () => {
     } else {
         currentSongIndex = 0;
     }
-    source.src = songs[currentSongIndex].songSrc;
+    source.src = getSongURL(currentSongIndex);
+    audioPlayer.load();
+    audioPlayer.play();
 })
 
 progressBar.addEventListener('click', (event) => {
@@ -116,4 +133,15 @@ progressBar.addEventListener('click', (event) => {
 
 volumeBar.addEventListener('input', (event) => {
     audioPlayer.volume = event.target.value / 100;
+});
+
+audioPlayer.addEventListener('playing', () => {
+    isPlaying = true;
+    pauseIcon.classList.remove('hidden');
+    startIcon.classList.add('hidden');
+});
+audioPlayer.addEventListener('pause', () => {
+    isPlaying = false;
+    pauseIcon.classList.add('hidden');
+    startIcon.classList.remove('hidden');
 });

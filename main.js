@@ -16,8 +16,8 @@ const createWindow = () => {
   });
 
 
-  win.webContents.openDevTools();
   win.loadFile('./frontend/src/index.html');
+  //win.webContents.openDevTools();
   //win.loadURL('http://localhost:3000');
 };
 

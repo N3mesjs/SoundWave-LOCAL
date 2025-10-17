@@ -1,12 +1,11 @@
 const fs = require('node:fs/promises');
 const path = require('path');
 
-let songs = [];
-
-const songsFilePath = path.join(__dirname, 'assets', 'songs');
-const imagesFilePath = path.join(__dirname, 'assets', 'images');
-
 async function fetchSongs() {
+    let songs = [];
+
+    const songsFilePath = path.join(__dirname, 'assets', 'songs');
+    const imagesFilePath = path.join(__dirname, 'assets', 'images');
     const filesSongs = await fs.readdir(songsFilePath);
     const filesImages = await fs.readdir(imagesFilePath);
 
@@ -18,13 +17,17 @@ async function fetchSongs() {
     });
 
     let playlist = filteredSongs.map(song => {
-        
+        for (let image of filteredImages) {
+            if (image.includes(path.parse(song).name)) {
+                return {
+                    songSrc: path.join('..', 'assets', 'songs', song),
+                    thumbnailSrc: path.join('..', 'assets', 'images', image)
+                }
+            }
+        }
     })
-
-    songs.push({
-        thumbnailSrc: path.join('..', 'assets', 'images', filteredImages[0]),
-        songSrc: path.join('..', 'assets', 'songs', filteredSongs[0]),
-    })
+    songs.push(JSON.stringify(playlist));
+    await fs.writeFile(path.join('src', 'songs.json'), songs);
 }
 
-fetchSongs();
+module.exports = fetchSongs;

@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron/main');
 const path = require('node:path');
+const updateSongList = require('./generate-playlist.js');
 
 const createWindow = () => {
   win = new BrowserWindow({
@@ -13,6 +14,7 @@ const createWindow = () => {
       preload: path.join(__dirname, 'preload.js')
     }
   });
+
 
   //win.webContents.openDevTools();
   win.loadFile('./src/index.html');
@@ -32,6 +34,9 @@ app.whenReady().then(() => {
   })
   ipcMain.on('minimize-window', () => {
     win.minimize();
+  });
+  ipcMain.on('refresh-songs', () => {
+    updateSongList();
   });
 });
 

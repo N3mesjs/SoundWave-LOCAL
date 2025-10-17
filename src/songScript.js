@@ -1,3 +1,5 @@
+const updateSongList = require('../generate-playlist.js');
+
 let currentSongIndex = 0; // Indice della canzone attualmente selezionata
 let isPlaying = false;
 let songs = [];

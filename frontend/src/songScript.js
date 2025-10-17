@@ -35,8 +35,8 @@ async function fetchSongsMap() {
 
 async function InizializeFirstSong(index) {
     songs = await fetchSongsMap();
-    thumbnail.src = songs[index].thumbnailSrc;
-    source.src = songs[index].songSrc;
+    thumbnail.src = "http:\\localhost:3000\\" + songs[index].thumbnailSrc;
+    source.src = "http:\\localhost:3000\\" + songs[index].songSrc;
     audioPlayer.load();
 }
 

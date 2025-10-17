@@ -5,7 +5,7 @@ const app = express();
 const PORT = 3000;
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
-app.use(express.static(path.join(__dirname, '..', 'frontend', 'src')));
+//app.use(express.static(path.join(__dirname, '..', 'frontend', 'src')));
 
 async function fetchSongs() {
     const songsFilePath = path.join(__dirname, 'assets', 'songs');
@@ -27,15 +27,15 @@ async function fetchSongs() {
             if (image.includes(path.parse(song).name)) {
                 imageFound = true;
                 return {
-                    songSrc: path.join('..', 'assets', 'songs', song),
-                    thumbnailSrc: path.join('..', 'assets', 'images', image)
+                    songSrc: path.join('assets', 'songs', song),
+                    thumbnailSrc: path.join('assets', 'images', image)
                 }
             }
         };
         if (!imageFound) {
             return {
-                songSrc: path.join('..', 'assets', 'songs', song),
-                thumbnailSrc: path.join('..', 'assets', 'images', 'default.png')
+                songSrc: path.join('assets', 'songs', song),
+                thumbnailSrc: path.join('assets', 'images', 'default.png')
             }
         }
         imageFound = false;

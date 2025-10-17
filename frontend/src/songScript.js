@@ -5,6 +5,7 @@ let songs = [];
 const audioPlayer = document.getElementById('audio-player');
 const source = audioPlayer.querySelector('source');
 const thumbnail = document.getElementById('thumbnail');
+const songName = document.getElementById('songName');
 
 const pauseIcon = document.getElementById('pause');
 const startIcon = document.getElementById('start');
@@ -41,7 +42,7 @@ async function InizializeFirstSong(index) {
 
     source.src = getSongURL(index);
     thumbnail.src = getThumbnailURL(index);
-
+    songName.innerHTML = getName(currentSongIndex);
     audioPlayer.load();
 }
 
@@ -62,6 +63,11 @@ const getSongURL = (index) => {
 const getThumbnailURL = (index) => {
     const songData = songs[index];
     return new URL(songData.thumbnailSrc, baseURL).href;
+}
+
+const getName = (index) => {
+    const songData = songs[index];
+    return songData.name;
 }
 
 InizializeFirstSong(currentSongIndex);
@@ -88,6 +94,7 @@ nextButton.addEventListener('click', () => {
 
     thumbnail.src = getThumbnailURL(currentSongIndex);
     source.src = getSongURL(currentSongIndex);
+    songName.innerHTML = getName(currentSongIndex);
     audioPlayer.load();
     audioPlayer.play();
 });
@@ -101,6 +108,7 @@ previousButton.addEventListener('click', () => {
 
     thumbnail.src = getThumbnailURL(currentSongIndex);
     source.src = getSongURL(currentSongIndex);
+    songName.innerHTML = getName(currentSongIndex);
     audioPlayer.load();
     audioPlayer.play();
 });
@@ -118,7 +126,10 @@ audioPlayer.addEventListener('ended', () => {
     } else {
         currentSongIndex = 0;
     }
+    thumbnail.src = getThumbnailURL(currentSongIndex);
     source.src = getSongURL(currentSongIndex);
+    songName.innerHTML = (path.parse(songs[index].songSrc).name).split('-').join(' ');
+    songName.innerHTML = getName(currentSongIndex);
     audioPlayer.load();
     audioPlayer.play();
 })

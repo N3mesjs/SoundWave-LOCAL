@@ -20,26 +20,25 @@ async function fetchSongs() {
         return file.endsWith('.mp3') || file.endsWith('.wav') || file.endsWith('.ogg')
     });
 
-    let imageFound = false;
-
     let playlist = filteredSongs.map(song => {
-        for (let image of filteredImages) {
-            if (image.includes(path.parse(song).name)) {
-                imageFound = true;
-                return {
-                    songSrc: `/assets/songs/${song}`,
-                    thumbnailSrc: `/assets/images/${image}`
-                }
-            }
-        };
-        if (!imageFound) {
+        const songName = path.parse(song).name;
+        const matchingImage = filteredImages.find(image => image.includes(songName));
+
+        if (matchingImage) {
             return {
                 songSrc: `/assets/songs/${song}`,
-                thumbnailSrc: `/assets/images/${image}`
-            }
+                thumbnailSrc: `/assets/images/${matchingImage}`,
+                name: songName.split('-').join(' ')
+            };
+        } else {
+            return {
+                songSrc: `/assets/songs/${song}`,
+                thumbnailSrc: '/assets/images/default.png',
+                name: songName.split('-').join(' ')
+            };
         }
-        imageFound = false;
-        })
+    });
+
     return playlist;
 }
 

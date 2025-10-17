@@ -1,6 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron/main');
 const path = require('node:path');
-const updateSongList = require('./Backend/server.js');
 
 const createWindow = () => {
   const win = new BrowserWindow({

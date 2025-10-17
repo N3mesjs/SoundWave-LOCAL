@@ -14,7 +14,6 @@ const playButton = document.getElementById('play');
 const nextButton = document.getElementById('next');
 const previousButton = document.getElementById('previous');
 
-const progressBarFill = document.getElementById('progress-fill');
 const progressBar = document.getElementById('progress');
 
 const volumeBar = document.getElementById('volume');
@@ -114,7 +113,7 @@ previousButton.addEventListener('click', () => {
 });
 
 audioPlayer.addEventListener('timeupdate', () => {
-    progressBarFill.style.width = (audioPlayer.currentTime / audioPlayer.duration) * 100 + '%';
+    progressBar.value = (audioPlayer.currentTime / audioPlayer.duration) * 100;
 
     currentTime.innerHTML = formatTime(audioPlayer.currentTime);
     totalTime.innerHTML = formatTime(audioPlayer.duration);

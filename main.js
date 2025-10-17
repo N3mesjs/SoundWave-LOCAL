@@ -1,9 +1,9 @@
 const { app, BrowserWindow, ipcMain } = require('electron/main');
 const path = require('node:path');
-const updateSongList = require('./generate-playlist.js');
+const updateSongList = require('./Backend/server.js');
 
 const createWindow = () => {
-  win = new BrowserWindow({
+  const win = new BrowserWindow({
     width: 600,
     height: 850,
     titleBarStyle: 'hidden',
@@ -16,8 +16,9 @@ const createWindow = () => {
   });
 
 
-  //win.webContents.openDevTools();
-  win.loadFile('./src/index.html');
+  // win.webContents.openDevTools();
+  // win.loadFile('./src/index.html');
+  win.loadURL('http://localhost:3000');
 };
 
 app.whenReady().then(() => {
@@ -34,9 +35,6 @@ app.whenReady().then(() => {
   })
   ipcMain.on('minimize-window', () => {
     win.minimize();
-  });
-  ipcMain.on('refresh-songs', () => {
-    updateSongList();
   });
 });
 

@@ -1,0 +1,6 @@
+{
+  "watch": ["main.js", "preload.js", "backend/", "frontend/src/"],
+  "ext": "js,json,html,css",
+  "ignore": ["src/songs.json"],
+  "exec": "electron ."
+}

@@ -30,7 +30,9 @@ app.whenReady().then(() => {
   });
 
   ipcMain.on('close-window', () => {
+    if (process.platform !== 'darwin') {
     app.quit();
+  }
   })
   ipcMain.on('minimize-window', () => {
     win.minimize();

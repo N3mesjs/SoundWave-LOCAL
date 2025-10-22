@@ -55,10 +55,3 @@ app.listen(PORT, async () => {
     const songs = await fetchSongs();
     console.log(songs);
 })
-
-async function fetchData() {
-    const response = await fetch('https://api-v2.soundcloud.com/search/tracks?q=club-bizarre&limit=3&client_id=zLORp7RRF8FR1UQK70cZBPDZ84u6FP2D');
-    const data = await response.json();
-    console.log(data.collection[0].media.transcodings[0]);
-  }
-  fetchData();
